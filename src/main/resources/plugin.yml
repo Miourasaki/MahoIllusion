@@ -1,0 +1,11 @@
+name: MahoIllusion
+version: '${project.version}'
+main: net.mioruasaki.mahoillusion.MahoIllusion
+api-version: '1.20'
+load: STARTUP
+authors: [白澪]
+description: Unknown
+website: mio.am
+commands:
+  occupation:
+    description: 选择元素
