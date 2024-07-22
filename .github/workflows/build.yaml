@@ -18,5 +18,5 @@ jobs:
           path: target/*.jar
       - uses: actions/upload-artifact@v4
         with:
-          name: "MahoIllusion-${VERSION}.jar"
-          path: target/*.jar
+          name: "MahoIllusion.jar"
+          path: target/classes/
