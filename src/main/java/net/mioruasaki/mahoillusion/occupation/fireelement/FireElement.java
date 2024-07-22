@@ -44,8 +44,11 @@ public class FireElement extends Occupation {
 
     BurningSoul bs;
 
+    PathBurning pb;
+
     @Override
     public void onLoad(MahoIllusion illusion) {
+
         illusion.getServer().getPluginManager().registerEvents(new BurningSoul(), illusion);
         illusion.getServer().getPluginManager().registerEvents(new CalcinedWeapons(), illusion);
         bs = new BurningSoul();
@@ -57,9 +60,14 @@ public class FireElement extends Occupation {
             }
         };
         // 使用 runTaskTimer 方法每tick执行一次任务
-        secondRun.runTaskTimer(MahoIllusion.getInstance(), 0, 5);
+        secondRun.runTaskTimer(MahoIllusion.getInstance(), 0, 2);
 
-        ControlManager.registerListener(new PathBurning());
+        pb = new PathBurning();
+        ControlManager.registerListener(pb);
     }
 
+    @Override
+    public void runTick() {
+        pb.runTick();
+    }
 }

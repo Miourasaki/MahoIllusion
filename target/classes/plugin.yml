@@ -9,3 +9,5 @@ website: mio.am
 commands:
   occupation:
     description: 选择元素
+  occ:
+    description: 选择元素

@@ -11,8 +11,8 @@ public abstract class ControlListener {
     protected boolean onPressQ(Player player) {
         return false;
     }
-    public void onLoad(MahoIllusion illusion) {}
-    protected void runTick() {}
-    protected void runSecond() {}
+    protected boolean onPressF(Player player) {
+        return false;
+    }
 
 }

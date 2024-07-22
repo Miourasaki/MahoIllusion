@@ -2,6 +2,7 @@ package net.mioruasaki.mahoillusion.commands;
 
 import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.occupation.Occupation;
+import net.mioruasaki.mahoillusion.occupation.OccupationCommon;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
 import net.mioruasaki.mahoillusion.options.Ceremony;
 import org.bukkit.command.Command;
@@ -25,7 +26,6 @@ public class CarryCeremony implements CommandExecutor {
                 if (args[0].equals("clear")) {
                     ((Player) commandSender).getPersistentDataContainer().remove(MahoIllusion.getKey("occupation"));
                 }
-                ;
                 if (args[0].equals("set") || args.length >= 2) {
                     try {
                         OccupationType occupationType = OccupationType.valueOf(args[1]);
@@ -36,6 +36,13 @@ public class CarryCeremony implements CommandExecutor {
                         occupation.onPlayerJoin(player);
                     }catch (Exception e) {
                         commandSender.sendMessage( "§c未知的元素选择");
+                    }
+                }
+                if (args[0].equals("point") || args.length >= 3) {
+                    if (args[1].equals("get")) {
+                        commandSender.sendMessage(OccupationCommon.getPoint((Player) commandSender).toString());
+                    }else if (args[1].equals("set")) {
+                        OccupationCommon.setPoint((Player) commandSender, Float.valueOf(args[2]));
                     }
                 }
             }

@@ -46,8 +46,8 @@ public class SpeedBlade implements Listener {
                 Entity entity = event.getEntity();
 
                 if (new Random().nextInt(4) == 1) {
-                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 10, 0));
-                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 10, 9));
+                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 20, 0));
+                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 9));
                     OccupationCommon.addPoint(player, 1f);
                 }
 

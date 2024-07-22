@@ -38,11 +38,11 @@ public class PathBurning extends SkillTemplate {
     }
 
 
-    @Override
-    protected void runTick() {
+    public void runTick() {
         for (UUID uuid : getActiveMap().keySet()) {
             Player player = Bukkit.getPlayer(uuid);
             if (player != null &&  getActiveMap().get(uuid) + 5000 >= System.currentTimeMillis()) {
+                player.setFireTicks(100);
                 Integer tickTime = tickMap.get(uuid);
                 if (tickTime == null || tickTime >= 10) {
 
