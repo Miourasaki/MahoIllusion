@@ -1,4 +1,4 @@
-package net.mioruasaki.mahoillusion.maho;
+package net.mioruasaki.mahoillusion.utils.maho;
 
 import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.utils.VectorUtils;

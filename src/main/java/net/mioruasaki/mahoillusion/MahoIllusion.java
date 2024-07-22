@@ -37,9 +37,9 @@ public final class MahoIllusion extends JavaPlugin {
 
 
         Control.onLoad(instance);
+
         getServer().getPluginManager().registerEvents(new Ceremony(), this);
         Objects.requireNonNull(getCommand("occupation")).setExecutor(new CarryCeremony());
-
         OccupationCommon.onLoad(instance);
 
     }

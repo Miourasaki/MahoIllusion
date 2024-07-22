@@ -3,10 +3,12 @@ package net.mioruasaki.mahoillusion.occupation.lorelibrary;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.mioruasaki.mahoillusion.MahoIllusion;
+import net.mioruasaki.mahoillusion.events.control.ControlManager;
 import net.mioruasaki.mahoillusion.occupation.Occupation;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
 import net.mioruasaki.mahoillusion.occupation.fireelement.BurningSoul;
 import net.mioruasaki.mahoillusion.occupation.fireelement.CalcinedWeapons;
+import net.mioruasaki.mahoillusion.occupation.fireelement.PathBurning;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -56,6 +58,8 @@ public class FireElement extends Occupation {
         };
         // 使用 runTaskTimer 方法每tick执行一次任务
         secondRun.runTaskTimer(MahoIllusion.getInstance(), 0, 5);
+
+        ControlManager.registerListener(new PathBurning());
     }
 
 }

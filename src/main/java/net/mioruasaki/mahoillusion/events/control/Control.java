@@ -27,33 +27,52 @@ public class Control implements Listener {
     HashMap<UUID, Long> playerSneakMap = new HashMap<>();
 
     @EventHandler
-    public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
+    void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         playerSneakMap.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
     }
 
 
     @EventHandler
-    public void onPlayerItemHeld(PlayerSwapHandItemsEvent event) {
+    void onPlayerItemHeld(PlayerSwapHandItemsEvent event) {
         long sneakTime = playerSneakMap.get(event.getPlayer().getUniqueId()) + 200;
         if (System.currentTimeMillis() < sneakTime) {
             if (usePlayers.contains(event.getPlayer())) {
-                event.getPlayer().sendMessage("少女祈祷中~");
-                usePlayers.remove(event.getPlayer());
+                for (ControlListener li : ControlManager.getListeners()) {
+                    if (li.onPressShiftAddF(event.getPlayer())) {
+                        event.setCancelled(true);
+                        usePlayers.remove(event.getPlayer());
+                    }
+                }
             }else {
-                event.getPlayer().playSound(event.getPlayer().getLocation() ,Sound.ENTITY_EXPERIENCE_ORB_PICKUP,0.2f,1);
+                playSound(event.getPlayer());
                 usePlayers.add(event.getPlayer());
+                event.setCancelled(true);
             }
-            event.setCancelled(true);
         }
     }
 
-
-    public static void onLoad(MahoIllusion illusion) {
-        controlBar.setProgress(1);
-        illusion.getServer().getPluginManager().registerEvents(new Control(), illusion);
+    public static void playSound(Player player) {
+        player.playSound(player.getLocation() ,Sound.ENTITY_EXPERIENCE_ORB_PICKUP,0.2f,1);
     }
+
     static BossBar controlBar = Bukkit.createBossBar("～+༺༃少女祈祷中(请按下组合键)༃༻+～", BarColor.PINK, BarStyle.SOLID, BarFlag.CREATE_FOG);
+    public static void onLoad(MahoIllusion illusion) {
+        for (ControlListener cl : ControlManager.getListeners())
+            cl.onLoad(illusion);
+
+        controlBar.setProgress(1);
+        ControlManager.registerListener(new ControlCancel());
+
+        illusion.getServer().getPluginManager().registerEvents(new Control(), illusion);
+        illusion.getServer().getPluginManager().registerEvents(new ControlQ(), illusion);
+    }
+    public static void runSecond() {
+        for (ControlListener cl : ControlManager.getListeners())
+            cl.runSecond();
+    }
     public static void runTask() {
+        for (ControlListener cl : ControlManager.getListeners())
+            cl.runTick();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (usePlayers.contains(player)) {
                 controlBar.addPlayer(player);

@@ -1,5 +1,6 @@
 package net.mioruasaki.mahoillusion.occupation.fireelement;
 
+import net.mioruasaki.mahoillusion.occupation.OccupationCommon;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
 import net.mioruasaki.mahoillusion.occupation.lorelibrary.FireElement;
 import org.bukkit.Bukkit;
@@ -21,22 +22,23 @@ public class BurningSoul implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE)) {
-                if (OccupationType.FIRE_ELEMENT.eqByPlayer(player)) {
+            if (OccupationType.FIRE_ELEMENT.eqByPlayer(player)) {
+                if (event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK) ||
+                        event.getCause().equals(EntityDamageEvent.DamageCause.FIRE)) {
                     player.setFireTicks(player.getFireTicks() + 30);
+                    OccupationCommon.addPoint(player, 2f);
 
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 30, 1));  // 抗性提升 II
                     player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 30, 2));  // 力量 III
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 30, 1));  // 生命回复 I
-//                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 30, 1));  // 抗火 I
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 1));  // 迅捷 II
                     player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 30, 0));  // 急迫 I
 
                     player.getLocation().getWorld().spawnParticle(Particle.SOUL, player.getLocation().add(0, 1.5, 0), 6, 0.1, 0.1, 0.1, 0.05);
                     player.getLocation().getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 1.5, 0), 6, 0.1, 0.1, 0.1, 0.05);
+                } else {
+                    player.setFireTicks(0);
                 }
-            } else {
-                player.setFireTicks(0);
             }
         }
     }

@@ -1,8 +1,8 @@
 package net.mioruasaki.mahoillusion.events;
 
-import net.mioruasaki.mahoillusion.MahoIllusion;
-import net.mioruasaki.mahoillusion.maho.TestMaho;
-import net.mioruasaki.mahoillusion.maho.TestMahoa;
+import net.mioruasaki.mahoillusion.occupation.fireelement.maho.Emberblade;
+import net.mioruasaki.mahoillusion.utils.maho.TestMaho;
+import net.mioruasaki.mahoillusion.utils.maho.TestMahoa;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +24,11 @@ public class PlayerUseItem implements Listener {
                         switch (event.getItem().getType()) {
                             case ENCHANTED_BOOK: {
                                 TestMahoa.testMaho(player);
+                                event.setCancelled(false);
+                                break;
+                            }
+                            case GOLDEN_HOE: {
+                                Emberblade.create(player);
                                 event.setCancelled(false);
                                 break;
                             }
