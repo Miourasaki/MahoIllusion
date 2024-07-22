@@ -14,5 +14,9 @@ jobs:
       # - run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v4
         with:
-          name: Package
-          path: target/*.jar
+          name: MahoIllusion
+          path: target/MahoIllusion-**.jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MahoIllusion
+          path: target/original-MahoIllusion-**.jar
