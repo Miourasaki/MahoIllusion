@@ -1,22 +1,22 @@
 package net.mioruasaki.mahoillusion.occupation.fightingwildly;
 
+import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
+import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
-import net.mioruasaki.mahoillusion.occupation.season.SeaSon;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ViolenceProtection implements Listener {
 
@@ -32,21 +32,19 @@ public class ViolenceProtection implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerItemHeld(PlayerSwapHandItemsEvent event) {
 
-        // 获取玩家在新槽位上的物品
-        ItemStack newItem = event.getOffHandItem();
-
-        // 检查新物品是否是盾牌
-        if (newItem.getType() == Material.SHIELD) {
-            event.setCancelled(true);
+    public static void runTick() {
+        for (Player player: new FightingWildly().getPlayers()) {
+        if (player.getInventory().getItemInOffHand().getType() == Material.SHIELD) {
+            player.getInventory().addItem(player.getInventory().getItemInOffHand());
+            player.getInventory().setItem(40, new ItemStack(Material.AIR));
+        }
         }
     }
 
-
     public static void runTask() {
         for (Player player: new FightingWildly().getPlayers()) {
+
             player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 25, 0));
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 25, 0));
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 25, 1));

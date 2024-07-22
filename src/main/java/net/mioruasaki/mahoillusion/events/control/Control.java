@@ -34,8 +34,9 @@ public class Control implements Listener {
 
     @EventHandler
     void onPlayerItemHeld(PlayerSwapHandItemsEvent event) {
-        long sneakTime = playerSneakMap.get(event.getPlayer().getUniqueId()) + 200;
-        if (System.currentTimeMillis() < sneakTime) {
+        Long sneakTime = playerSneakMap.get(event.getPlayer().getUniqueId());
+        if (sneakTime !=null && System.currentTimeMillis() < sneakTime  + 200) {
+            playerSneakMap.put(event.getPlayer().getUniqueId(), 0L);
             if (usePlayers.contains(event.getPlayer())) {
                 for (ControlListener li : ControlManager.getListeners()) {
                     if (li.onPressShiftAddF(event.getPlayer())) {

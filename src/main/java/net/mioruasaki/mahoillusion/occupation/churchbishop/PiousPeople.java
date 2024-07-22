@@ -17,7 +17,8 @@ public class PiousPeople {
 
             for (Entity entity : player.getNearbyEntities(10,10,10)) {
                 if (entity.getUniqueId() == player.getUniqueId()) continue;
-                ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 25, 1));  // 虚弱 III
+                if (entity instanceof LivingEntity)
+                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 25, 1));  // 虚弱 III
             }
 
         }

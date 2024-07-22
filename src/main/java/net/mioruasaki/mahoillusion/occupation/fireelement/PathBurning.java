@@ -4,6 +4,7 @@ import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.events.control.Control;
 import net.mioruasaki.mahoillusion.events.control.ControlListener;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
+import net.mioruasaki.mahoillusion.occupation.SkillTemplate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -16,39 +17,32 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PathBurning extends ControlListener {
+public class PathBurning extends SkillTemplate {
 
-    private static final HashMap<UUID, Long> activeMap = new HashMap<>();
     private static final HashMap<UUID, Integer> tickMap = new HashMap<>();
 
-    @Override
-    protected boolean onPressQ(Player player) {
-        if (OccupationType.FIRE_ELEMENT.eqByPlayer(player)) {
-            Long lastActiveTime = activeMap.get(player.getUniqueId());
-            if (lastActiveTime == null || lastActiveTime + 10000 < System.currentTimeMillis()) {
-                player.setFireTicks(100);
-                activeMap.put(player.getUniqueId(), System.currentTimeMillis());
-                Control.playSound(player);
-            }else {
-                DecimalFormat df = new DecimalFormat("#.00"); // 保留两位小数
-                Double dou = (lastActiveTime + 10000 - System.currentTimeMillis())/1000.0;
 
-                player.sendMessage(ChatColor.RED + "技能冷却中, 剩余 " + df.format(dou) + " 秒");
-            }
-        }
-        return true;
+    @Override
+    protected void run(Player player) {
+        player.setFireTicks(100);
+        Control.playSound(player);
     }
 
     @Override
-    public void onLoad(MahoIllusion illusion) {
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+    protected int getTime() {
+        return 10000;
     }
+    @Override
+    protected OccupationType getType() {
+        return OccupationType.FIRE_ELEMENT;
+    }
+
 
     @Override
     protected void runTick() {
-        for (UUID uuid : activeMap.keySet()) {
+        for (UUID uuid : getActiveMap().keySet()) {
             Player player = Bukkit.getPlayer(uuid);
-            if (player != null && activeMap.get(uuid) + 5000 >= System.currentTimeMillis()) {
+            if (player != null &&  getActiveMap().get(uuid) + 5000 >= System.currentTimeMillis()) {
                 Integer tickTime = tickMap.get(uuid);
                 if (tickTime == null || tickTime >= 10) {
 
