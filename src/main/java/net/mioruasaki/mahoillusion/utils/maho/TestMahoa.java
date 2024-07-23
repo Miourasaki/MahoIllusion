@@ -34,6 +34,26 @@ public class TestMahoa {
         });
     }
 
+    public static void testMahoa(Player player, Location location) {
+        BukkitScheduler scheduler = MahoIllusion.getInstance().getServer().getScheduler();
+        Vector direction = location.getDirection();
+        scheduler.runTask(MahoIllusion.getInstance(), () -> {
+            Location spawnLocation = location.clone().add(0, 1.7, 0).add(direction.multiply(1)); // 在玩家上方1格生成
+
+            // 创建并设置盔甲架属性
+            ArmorStand armorStand = (ArmorStand) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ARMOR_STAND);
+            armorStand.setVisible(false); // 设置为不可见
+            armorStand.setSmall(true);
+            armorStand.setBasePlate(false);
+            armorStand.setAI(true);
+            armorStand.setGravity(false);
+
+            // 设置盔甲架的移动逻辑
+            moveArmorStand(armorStand, 100, direction, player);
+
+        });
+    }
+
     private static void moveArmorStand(ArmorStand armorStand, int maxDistance, Vector direction, Player player) {
         final double[] distanceMoved = {0};
 

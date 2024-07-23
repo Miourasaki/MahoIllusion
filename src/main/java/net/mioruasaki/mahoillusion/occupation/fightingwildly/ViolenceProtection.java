@@ -5,6 +5,9 @@ import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +20,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 public class ViolenceProtection implements Listener {
 
@@ -43,12 +48,18 @@ public class ViolenceProtection implements Listener {
     }
 
     public static void runTask() {
-        for (Player player: new FightingWildly().getPlayers()) {
+        for (Player player: Bukkit.getOnlinePlayers()) {
+            if (OccupationType.FIGHTING_WILDLY.eqByPlayer(player)) {
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_SPEED)).setBaseValue(6);
 
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 25, 0));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 25, 0));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 25, 1));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 25, 1));
+
+                player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 25, 0));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 25, 0));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 25, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 25, 1));
+            }else {
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ATTACK_SPEED)).setBaseValue(4);
+            }
         }
     }
 

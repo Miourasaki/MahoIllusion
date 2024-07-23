@@ -52,22 +52,15 @@ public class FireElement extends Occupation {
         illusion.getServer().getPluginManager().registerEvents(new BurningSoul(), illusion);
         illusion.getServer().getPluginManager().registerEvents(new CalcinedWeapons(), illusion);
         bs = new BurningSoul();
-        BukkitRunnable secondRun = new BukkitRunnable() {
-            @Override
-            public void run() {
-                // 这里写需要每tick执行的代码
-                bs.onTick();
-            }
-        };
-        // 使用 runTaskTimer 方法每tick执行一次任务
-        secondRun.runTaskTimer(MahoIllusion.getInstance(), 0, 2);
 
         pb = new PathBurning();
         ControlManager.registerListener(pb);
     }
 
+
     @Override
     public void runTick() {
+        bs.onTick();
         pb.runTick();
     }
 }

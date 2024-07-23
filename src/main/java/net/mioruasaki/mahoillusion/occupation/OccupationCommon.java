@@ -2,6 +2,7 @@ package net.mioruasaki.mahoillusion.occupation;
 
 import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.events.control.Control;
+import net.mioruasaki.mahoillusion.events.control.ControlSpace;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -19,6 +20,7 @@ public class OccupationCommon {
             public void run() {
                 // 这里写需要每tick执行的代码
                 Control.runTask();
+//                ControlSpace.onTick();
 
                 for (OccupationType type : OccupationType.values()) {
                     type.getInstance().runTick();

@@ -23,4 +23,9 @@ public class ControlAll extends ControlListener {
         player.sendMessage(ChatColor.YELLOW + "你按下了 组合键Shift+F");
         return true;
     }
+
+    @Override
+    protected void onJustPassDoubleF(Player player) {
+        player.sendMessage(ChatColor.YELLOW + "你按下了 双F");
+    }
 }

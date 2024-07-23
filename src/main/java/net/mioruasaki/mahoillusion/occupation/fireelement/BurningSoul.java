@@ -54,8 +54,8 @@ public class BurningSoul implements Listener {
             playerLastFireTicks.remove(player.getUniqueId());
             playerLastFireTicks.put(player.getUniqueId(), player.getFireTicks());
 
-            if (lastFireTicks != null && lastFireTicks >= 0 && player.getFireTicks() <= 0 &&
-                    player.getLocation().getBlock().isLiquid()) {
+            if (lastFireTicks != null && lastFireTicks > 0 && player.getFireTicks() <= 0 &&
+                    player.isInWater()) {
                 player.clearActivePotionEffects();
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40, 1));  // 凋零 II
                 player.damage(10);

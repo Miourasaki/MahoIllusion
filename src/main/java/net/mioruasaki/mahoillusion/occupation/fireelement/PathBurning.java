@@ -4,6 +4,7 @@ import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.events.control.Control;
 import net.mioruasaki.mahoillusion.events.control.ControlListener;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
+import net.mioruasaki.mahoillusion.occupation.SkillCommon;
 import net.mioruasaki.mahoillusion.occupation.SkillTemplate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,31 +18,25 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PathBurning extends SkillTemplate {
+public class PathBurning extends ControlListener {
 
     private static final HashMap<UUID, Integer> tickMap = new HashMap<>();
-
-
-    @Override
-    protected void run(Player player) {
-        player.setFireTicks(100);
-        Control.playSound(player);
-    }
+    private static final HashMap<UUID, Long> activeMap = new HashMap<>();
 
     @Override
-    protected int getTime() {
-        return 10000;
-    }
-    @Override
-    protected OccupationType getType() {
-        return OccupationType.FIRE_ELEMENT;
+    protected void onJustPassDoubleF(Player player) {
+        SkillCommon.load(activeMap, 10000L, OccupationType.FIRE_ELEMENT, player, () -> {
+            player.setFireTicks(100);
+            Control.playSound(player);
+            return true;
+        });
     }
 
 
     public void runTick() {
-        for (UUID uuid : getActiveMap().keySet()) {
+        for (UUID uuid : activeMap.keySet()) {
             Player player = Bukkit.getPlayer(uuid);
-            if (player != null &&  getActiveMap().get(uuid) + 5000 >= System.currentTimeMillis()) {
+            if (player != null && activeMap.get(uuid) + 5000 >= System.currentTimeMillis()) {
                 player.setFireTicks(100);
                 Integer tickTime = tickMap.get(uuid);
                 if (tickTime == null || tickTime >= 10) {

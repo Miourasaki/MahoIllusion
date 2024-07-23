@@ -28,8 +28,13 @@ public class FightingWildly extends Occupation {
     @Override
     public void onLoad(MahoIllusion instance) {
         ControlManager.registerListener(new JumpImpact());
+        ControlManager.registerListener(new Violent());
+        instance.getServer().getPluginManager().registerEvents(new JumpImpact(), instance);
+
+        Violent.onLoad();
 
         instance.getServer().getPluginManager().registerEvents(new ViolenceProtection(), instance);
+        instance.getServer().getPluginManager().registerEvents(new Violent(), instance);
         instance.getServer().getPluginManager().registerEvents(new SpeedBlade(), instance);
     }
 

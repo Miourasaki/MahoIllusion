@@ -4,6 +4,7 @@ import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.events.control.template.ControlAll;
 import net.mioruasaki.mahoillusion.events.control.template.ControlCancel;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -23,6 +24,7 @@ public class Control implements Listener {
 
     static ArrayList<Player> usePlayers = new ArrayList<>();
     HashMap<UUID, Long> playerSneakMap = new HashMap<>();
+    HashMap<UUID, Long> playerFMap = new HashMap<>();
 
     @EventHandler
     void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
@@ -45,10 +47,14 @@ public class Control implements Listener {
                 }
             }else {
                 playSound(event.getPlayer());
+                for (ControlListener li : ControlManager.getListeners()) {
+                    li.onJustPressShiftAddF(event.getPlayer());
+                }
+//                event.getPlayer().setAllowFlight(true);
                 usePlayers.add(event.getPlayer());
                 event.setCancelled(true);
             }
-        }else {
+        } else {
             if (Control.usePlayers.contains(event.getPlayer())) {
                 for (ControlListener li : ControlManager.getListeners()) {
                     if (li.onPressF(event.getPlayer())) {
@@ -56,6 +62,16 @@ public class Control implements Listener {
                         Control.usePlayers.remove(event.getPlayer());
                     }
                 }
+            } else {
+                Long fTime = playerFMap.get(event.getPlayer().getUniqueId());
+                if (fTime !=null && System.currentTimeMillis() < fTime  + 160) {
+                    for (ControlListener li : ControlManager.getListeners()) {
+                        li.onJustPassDoubleF(event.getPlayer());
+                    }
+                }else {
+                    playerFMap.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
+                }
+
             }
         }
     }
@@ -69,8 +85,10 @@ public class Control implements Listener {
 
         controlBar.setProgress(1);
         ControlManager.registerListener(new ControlCancel());
-        ControlManager.registerListener(new ControlAll());
+//        ControlManager.registerListener(new ControlAll());
 
+        illusion.getServer().getPluginManager().registerEvents(new ControlDoubleSpace(), illusion);
+        illusion.getServer().getPluginManager().registerEvents(new ControlSpace(), illusion);
         illusion.getServer().getPluginManager().registerEvents(new Control(), illusion);
         illusion.getServer().getPluginManager().registerEvents(new ControlQ(), illusion);
     }
@@ -81,6 +99,8 @@ public class Control implements Listener {
             if (usePlayers.contains(player)) {
                 controlBar.addPlayer(player);
             }else {
+                if (!player.getGameMode().equals(GameMode.CREATIVE))
+                    player.setAllowFlight(false);
                 controlBar.removePlayer(player);
             }
         }
