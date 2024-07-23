@@ -22,7 +22,7 @@ public class FightingWildly extends Occupation {
 
     @Override
     public int getMaxHealth() {
-        return 30;
+        return 60;
     }
 
     @Override

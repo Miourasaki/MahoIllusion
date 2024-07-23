@@ -12,7 +12,7 @@ public abstract class Occupation {
 
     protected static OccupationType ID;
     public int getMaxHealth() {
-        return 20;
+        return 40;
     }
     public void onPlayerJoin(Player player) {}
 

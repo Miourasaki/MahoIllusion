@@ -4,7 +4,7 @@ import net.mioruasaki.mahoillusion.MahoIllusion;
 import net.mioruasaki.mahoillusion.occupation.bettingdog.BettingDog;
 import net.mioruasaki.mahoillusion.occupation.churchbishop.ChurchBishop;
 import net.mioruasaki.mahoillusion.occupation.fightingwildly.FightingWildly;
-import net.mioruasaki.mahoillusion.occupation.lorelibrary.FireElement;
+import net.mioruasaki.mahoillusion.occupation.fireelement.FireElement;
 import net.mioruasaki.mahoillusion.occupation.lorelibrary.LoreLibrary;
 import net.mioruasaki.mahoillusion.occupation.paladin.Paladin;
 import net.mioruasaki.mahoillusion.occupation.season.SeaSon;

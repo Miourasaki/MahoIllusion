@@ -116,7 +116,7 @@ public class Emberblade {
                     final int[] taskId = new int[1];
                     BukkitScheduler scheduler = MahoIllusion.getInstance().getServer().getScheduler();
                     taskId[0] = scheduler.runTaskTimer(MahoIllusion.getInstance(), () -> {
-                        if (i[0] > 4) {
+                        if (i[0] > 1) {
                             scheduler.cancelTask(taskId[0]); // 达到最大距离后取消任务
                             return;
                         }

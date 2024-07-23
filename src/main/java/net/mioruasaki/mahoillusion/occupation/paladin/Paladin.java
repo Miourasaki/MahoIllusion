@@ -23,7 +23,7 @@ public class Paladin extends Occupation {
 
     @Override
     public int getMaxHealth() {
-        return 12;
+        return 24;
     }
 
 

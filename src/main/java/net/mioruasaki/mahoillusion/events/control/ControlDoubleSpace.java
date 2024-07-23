@@ -29,6 +29,21 @@ public class ControlDoubleSpace implements Listener {
                 if (callResult.cancelled) event.setCancelled(true);
                 if (callResult.load) Control.usePlayers.remove(event.getPlayer());
             }
+        }else {
+            for (ControlListener li : ControlManager.getListeners()) {
+                ControlListener.CallResult callResult = li.onJustPressDoubleSpace(player);
+
+                BukkitRunnable runnable = new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (callResult.run != null)
+                            callResult.run.run();
+                    }
+                };
+                runnable.runTaskLater(MahoIllusion.getInstance(), 1);
+
+                if (callResult.load) Control.usePlayers.remove(event.getPlayer());
+            }
         }
     }
 

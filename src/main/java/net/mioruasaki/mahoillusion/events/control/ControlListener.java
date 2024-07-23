@@ -22,6 +22,9 @@ public abstract class ControlListener {
     protected CallResult onPressDoubleSpace(Player player) {
         return new CallResult(false,false);
     }
+    protected CallResult onJustPressDoubleSpace(Player player) {
+        return new CallResult(false,false);
+    }
 
     public static class CallResult {
         public boolean cancelled = false;

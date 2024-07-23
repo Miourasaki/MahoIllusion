@@ -35,7 +35,7 @@ public class JumpImpact extends ControlListener implements Listener {
         })) {
             return callResult;
         };
-        return new ControlListener.CallResult(false,true);
+        return new ControlListener.CallResult(false,false);
     }
 
 

@@ -38,12 +38,12 @@ public class DivineImpact {
             }
 
 
-            location.add(0,0.05 + (double) distanceMoved[0] /11,0).setPitch(0);
+            location.add(0,0.05 + (double) distanceMoved[0] /10,0).setPitch(0);
 
 
-            for (float i = 0 ; i < 360*2; i ++) {
+            for (float i = 0 ; i < 360; i ++) {
                 if (distanceMoved[0] == 0) continue;
-                float yaw = i/2f;
+                float yaw = i;
 
                 location.setYaw(yaw);
                 Vector picVector = location.clone().getDirection().multiply(distanceMoved[0]*2);
@@ -73,11 +73,11 @@ public class DivineImpact {
             }
             if (nearbyEntity instanceof LivingEntity && !beHitEntity.contains(nearbyEntity)) {
                 LivingEntity entity = (LivingEntity) nearbyEntity;
-                entity.damage(0.1, player);
-                if (entity.getHealth() <= 5) entity.setHealth(0);
-                else entity.setHealth(entity.getHealth() - 5);
+                entity.damage(1, player);
+//                if (entity.getHealth() <= 5) entity.setHealth(0);
+//                else entity.setHealth(entity.getHealth() - 5);
 
-                nearbyEntity.setVelocity(vector.multiply(0.1).add(new Vector(0,0.5,0)));
+                nearbyEntity.setVelocity(vector.multiply(0.5).add(new Vector(0,0.6,0)));
                 beHitEntity.add(nearbyEntity);
             }
 

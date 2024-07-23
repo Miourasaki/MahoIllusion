@@ -19,15 +19,31 @@ import java.util.Random;
 
 public class FireLots {
 
-    public static void  create(Player player) {
+
+    public static void create(Player player) {
+        Location playerLocation = player.getLocation();
+        main(player, playerLocation);
+        float nowYaw = playerLocation.getYaw();
+
+        Location leftLocation = playerLocation.clone();
+        leftLocation.setYaw(nowYaw+ 30f);
+        Location RightLocation = playerLocation.clone();
+        RightLocation.setYaw(nowYaw - 30f);
+
+        main(player, leftLocation);
+        main(player, RightLocation);
+
+    }
+
+    static void main(Player player, Location location) {
         BukkitScheduler scheduler = MahoIllusion.getInstance().getServer().getScheduler();
-        Vector direction = player.getLocation().getDirection();
+        Vector direction = location.getDirection();
         scheduler.runTask(MahoIllusion.getInstance(), () -> {
-            Location spawnLocation = player.getLocation().clone().add(0, 1, 0).add(direction.multiply(1)); // 在玩家上方1格生成
+            Location spawnLocation = location.clone().add(0, 1, 0).add(direction.multiply(1)); // 在玩家上方1格生成
 
             // 创建并设置盔甲架属性
             ArmorStand armorStand = (ArmorStand) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ARMOR_STAND);
-            armorStand.setVisible(true); // 设置为不可见
+            armorStand.setVisible(false); // 设置为不可见
             armorStand.setBasePlate(false);
             armorStand.setAI(true);
             armorStand.setGravity(false);
@@ -35,7 +51,7 @@ public class FireLots {
 
             ItemStack stick = new ItemStack(Material.STICK);
             armorStand.getEquipment().setItemInMainHand(stick);
-            armorStand.setRightArmPose(new EulerAngle(5f,100f,80f));
+            armorStand.setRightArmPose(new EulerAngle(25f,50f,80f));
 
             // 设置盔甲架的移动逻辑
             moveArmorStand(armorStand, 100, direction, player);
@@ -61,7 +77,7 @@ public class FireLots {
                 Location currentLocation = armorStand.getLocation();
                 Location nextLocation = currentLocation.add(direction.multiply(1));
                 // 生成粒子
-                nextLocation.getWorld().spawnParticle(Particle.SMOKE, nextLocation, 1, 0, 0, 0, 0.02);
+                nextLocation.getWorld().spawnParticle(Particle.SMOKE, nextLocation, 2, 0, 0, 0, 0.02);
                 // 碰撞检测
                 armorStand.teleport(nextLocation); // 移动盔甲架
                 if (isBlocked(nextLocation) || isPlayer(armorStand, player)) {
@@ -73,7 +89,7 @@ public class FireLots {
 
 
             distanceMoved[0] += 1;
-        }, 0L, 10L).getTaskId(); // 10L表示每10 ticks（1 tick = 50毫秒）执行一次，这里可以根据需要调整
+        }, 0L, 2L).getTaskId(); // 10L表示每10 ticks（1 tick = 50毫秒）执行一次，这里可以根据需要调整
 
 
     }

@@ -1,4 +1,4 @@
-package net.mioruasaki.mahoillusion.occupation.lorelibrary;
+package net.mioruasaki.mahoillusion.occupation.fireelement;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -17,11 +17,6 @@ public class FireElement extends Occupation {
 
     static {
         ID = OccupationType.FIRE_ELEMENT;
-    }
-
-    @Override
-    public int getMaxHealth() {
-        return 14;
     }
 
     MiniMessage mm = MiniMessage.miniMessage();

@@ -56,11 +56,11 @@ public class SpeedBlade implements Listener {
 
                     int rand = new Random().nextInt(100);
                     if (rand < 15) {
-                        player.setHealth(player.getHealth() + 2);
+                        player.setHealth(player.getHealth() + 3);
 
                         OccupationCommon.addPoint(player, 1f);
                     }else if (rand < 45) {
-                        player.setHealth(player.getHealth() + 1);
+                        player.setHealth(player.getHealth() + 2);
                         OccupationCommon.addPoint(player, 1f);
                     }
 

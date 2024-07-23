@@ -21,7 +21,7 @@ public class AnvilHeaven extends ControlListener {
     protected boolean onPressF(Player player) {
         if (OccupationType.PALADIN.eqByPlayer(player)) {
 
-            Collection<Entity> nearbyEntities = player.getNearbyEntities(2.5,1,2.5);
+            Collection<Entity> nearbyEntities = player.getNearbyEntities(5,1.5,5);
             ArrayList<LivingEntity> entities = new ArrayList<>();
             ArrayList<LivingEntity> players = new ArrayList<>();
             for (Entity entity : nearbyEntities) {

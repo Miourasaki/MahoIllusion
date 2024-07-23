@@ -64,7 +64,7 @@ public class Control implements Listener {
                 }
             } else {
                 Long fTime = playerFMap.get(event.getPlayer().getUniqueId());
-                if (fTime !=null && System.currentTimeMillis() < fTime  + 160) {
+                if (fTime !=null && System.currentTimeMillis() < fTime  + 200) {
                     for (ControlListener li : ControlManager.getListeners()) {
                         li.onJustPassDoubleF(event.getPlayer());
                     }

@@ -2,7 +2,6 @@ package net.mioruasaki.mahoillusion.occupation.fireelement;
 
 import net.mioruasaki.mahoillusion.occupation.OccupationCommon;
 import net.mioruasaki.mahoillusion.occupation.OccupationType;
-import net.mioruasaki.mahoillusion.occupation.lorelibrary.FireElement;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -29,8 +28,9 @@ public class BurningSoul implements Listener {
                     OccupationCommon.addPoint(player, 2f);
 
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 30, 1));  // 抗性提升 II
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 30, 2));  // 力量 III
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 30, 1));  // 生命回复 I
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 30, 1));  // 力量 III
+//                    player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 30, 1));  // 生命回复 I
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 30, 0));  // 生命回复 I
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 1));  // 迅捷 II
                     player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 30, 0));  // 急迫 I
 
@@ -58,7 +58,7 @@ public class BurningSoul implements Listener {
                     player.isInWater()) {
                 player.clearActivePotionEffects();
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40, 1));  // 凋零 II
-                player.damage(10);
+                player.damage(4);
             }
         }
 

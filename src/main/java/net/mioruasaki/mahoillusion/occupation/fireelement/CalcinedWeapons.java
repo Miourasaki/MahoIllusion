@@ -42,6 +42,7 @@ public class CalcinedWeapons implements Listener {
                 // 煅烧兵器
                 int witherSecond = 20;
                 if (player.getFireTicks() > 0) {
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60, 1));  // 生命回复 I
                     witherSecond = 40;
                     entity.setFireTicks(entity.getFireTicks() + 120);
                     entity.getWorld().spawnParticle(Particle.FLAME, entity.getLocation().add(0, 1.5, 0), 6, 0.1, 0.1, 0.1, 0.05);
@@ -51,10 +52,10 @@ public class CalcinedWeapons implements Listener {
 
                 if (mainHandItem.getEnchantments().containsKey(Enchantment.FIRE_ASPECT)) {
                     entity.getWorld().spawnParticle(Particle.FLAME, entity.getLocation().add(0, 1.5, 0), witherSecond * 2, 0.1, 0.1, 0.1, 0.5);
-                    entity.getWorld().createExplosion( entity.getLocation().add(0,0.8,0), (float) witherSecond / 25, true, false, player);
+                    entity.getWorld().createExplosion( entity.getLocation().add(0,0.8,0), (float) witherSecond / 30, false, false, player);
                 }
                 // 烬灭之刃
-                if (OccupationCommon.getPoint(player) > 50f) {
+                if (OccupationCommon.getPoint(player) > 25f && player.getFireTicks() > 0) {
                     try {
                         player.sendMessage("释放");
                         Emberblade.create(player);
