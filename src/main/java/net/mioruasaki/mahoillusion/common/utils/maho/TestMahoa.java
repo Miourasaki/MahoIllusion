@@ -1,4 +1,4 @@
-package net.mioruasaki.mahoillusion.utils.maho;
+package net.mioruasaki.mahoillusion.common.utils.maho;
 
 import net.mioruasaki.mahoillusion.MahoIllusion;
 import org.bukkit.Location;

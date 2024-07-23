@@ -36,5 +36,7 @@ public class BettingDog extends Occupation {
     @Override
     public void onLoad(MahoIllusion instance) {
         DogFortune.onLoad(instance);
+        instance.getServer().getPluginManager().registerEvents(new DoubleEdged(), instance);
+        instance.getServer().getPluginManager().registerEvents(new DrawLots(), instance);
     }
 }

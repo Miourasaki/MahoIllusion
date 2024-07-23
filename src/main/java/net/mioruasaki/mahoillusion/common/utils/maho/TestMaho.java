@@ -1,7 +1,7 @@
-package net.mioruasaki.mahoillusion.utils.maho;
+package net.mioruasaki.mahoillusion.common.utils.maho;
 
 import net.mioruasaki.mahoillusion.MahoIllusion;
-import net.mioruasaki.mahoillusion.utils.VectorUtils;
+import net.mioruasaki.mahoillusion.common.utils.VectorUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;

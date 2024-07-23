@@ -2,6 +2,8 @@ package net.mioruasaki.mahoillusion.occupation.paladin;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.mioruasaki.mahoillusion.MahoIllusion;
+import net.mioruasaki.mahoillusion.events.control.ControlManager;
 import net.mioruasaki.mahoillusion.occupation.Occupation;
 import net.mioruasaki.mahoillusion.occupation.churchbishop.PiousPeople;
 
@@ -22,6 +24,13 @@ public class Paladin extends Occupation {
     @Override
     public int getMaxHealth() {
         return 12;
+    }
+
+
+    @Override
+    public void onLoad(MahoIllusion instance) {
+        ControlManager.registerListener(new AnvilHeaven());
+     instance.getServer().getPluginManager().registerEvents(new DivineJudgment(), instance);
     }
 
     @Override

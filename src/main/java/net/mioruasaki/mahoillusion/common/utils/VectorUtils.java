@@ -1,4 +1,4 @@
-package net.mioruasaki.mahoillusion.utils;
+package net.mioruasaki.mahoillusion.common.utils;
 
 import org.bukkit.util.Vector;
 

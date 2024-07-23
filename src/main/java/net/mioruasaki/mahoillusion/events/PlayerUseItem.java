@@ -1,8 +1,8 @@
 package net.mioruasaki.mahoillusion.events;
 
 import net.mioruasaki.mahoillusion.occupation.fireelement.maho.Emberblade;
-import net.mioruasaki.mahoillusion.utils.maho.TestMaho;
-import net.mioruasaki.mahoillusion.utils.maho.TestMahoa;
+import net.mioruasaki.mahoillusion.common.utils.maho.TestMaho;
+import net.mioruasaki.mahoillusion.common.utils.maho.TestMahoa;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
